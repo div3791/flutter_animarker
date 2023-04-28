@@ -364,11 +364,18 @@ class AnimarkerState extends State<Animarker> with TickerProviderStateMixin {
   void didUpdateWidget(Animarker oldWidget) {
     print(
         'didUpdateWidget: ${oldWidget.markers.map((e) => e.rotation).join(',')}');
-    if (oldWidget.markers.length > widget.markers.length) {
-      print('didUpdateWidget: updateMarkers');
-      widget.updateMarkers(oldWidget.markers, widget.markers);
-      return;
-    }
+//     if (oldWidget.markers.length > widget.markers.length) {
+//       print('didUpdateWidget: updateMarkers');
+//       widget.updateMarkers(oldWidget.markers, widget.markers);
+//       return;
+//     }
+    if (widget.markers.length < oldWidget.markers.length) {
+        widget.updateMarkers(oldWidget.markers, widget.markers);
+        return;
+      }
+      if (widget.markers.length > oldWidget.markers.length) {
+        _markers.clear();
+      }
     print('didUpdateWidget: calculateListDiff');
     final diffResult = calculateListDiff<Marker>(
       oldWidget.markers.toList(),
